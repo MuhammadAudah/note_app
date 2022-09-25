@@ -1,41 +1,37 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebaseexample/home_page.dart';
+import 'package:firebaseexample/log_in_page.dart';
+import 'package:firebaseexample/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "XXX",
+        appId: "1:114610193704:android:e1e9f2ba36d8d1b1b93c1d",
+        messagingSenderId: "",
+        projectId: "note-app-e7557"),
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      debugShowCheckedModeBanner: false,
+      home: LogInPage(),
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
-      ),
+      routes: {
+        "LogInPage": (context) => LogInPage(),
+        "SignUpPage": (context) => SignUpPage(),
+        "HomePage": (context) => HomePage(),
+      },
     );
   }
 }
